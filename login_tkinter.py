@@ -1,5 +1,6 @@
-import tkinter as tk
+import customtkinter as ctk
 from tkinter import messagebox
+
 
 def verificar_credenciais():
     usuario = entry_usuario.get()
@@ -7,36 +8,39 @@ def verificar_credenciais():
 
     if usuario == "a" and senha == "a":
         messagebox.showinfo("Login bem-sucedido", "Login realizado com sucesso!")
-        janela_login.destroy()
-        nova_janela_painel()  
+        nova_janela()  
+        
     else:
         messagebox.showerror("Login falhou", "Credenciais inválidas. Tente novamente.")
 
-def nova_janela_painel():
-    janela_painel = tk.Tk()
-    janela_painel.title("Painel")
 
-    texto_orientacao = tk.Label(janela_painel, text="Funcionando!! ")
-    texto_orientacao.pack()
+def nova_janela():
+    janela = ctk.CTkToplevel(janela_login)
+    janela.title("Nova Janela")
+    janela.geometry("400x200")
+
+    texto = ctk.CTkLabel(janela, text="Nova janela")
+    texto.pack()
 
 
-
-janela_login = tk.Tk()
+janela_login = ctk.CTk()
 janela_login.title("Sistema de Login")
+janela_login.geometry("400x200")
 
-label_usuario = tk.Label(janela_login, text="Usuário:")
-label_usuario.pack()
-entry_usuario = tk.Entry(janela_login, width="20")
-entry_usuario.pack()
+texto = ctk.CTkLabel(janela_login, text="Fazer Login")
+texto.pack(padx=10,pady=10)
 
-label_senha = tk.Label(janela_login, text="Senha:")
-label_senha.pack()
-entry_senha = tk.Entry(janela_login, width="20",show="*")  
-entry_senha.pack()
+entry_usuario = ctk.CTkEntry(janela_login, placeholder_text="Usuário...", )
+entry_usuario.pack(padx=10,pady=10)
 
-# Botão de login
-botao_login = tk.Button(janela_login, text="Login", width= "20", command=verificar_credenciais)
-botao_login.pack()
+entry_senha = ctk.CTkEntry(janela_login, placeholder_text="Senha...", show="*")  
+entry_senha.pack(padx=10,pady=10)
 
-# Executa a janela
+checkbox = ctk.CTkCheckBox(janela_login, text="Lembrar Login")
+checkbox.pack(padx=10, pady=10)
+
+
+botao_login = ctk.CTkButton(janela_login, text="Login", command=verificar_credenciais)
+botao_login.pack(padx=10,pady=10)
+
 janela_login.mainloop()
